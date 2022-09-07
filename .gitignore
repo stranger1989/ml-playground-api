@@ -1,0 +1,21 @@
+# cache
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+
+# jupyter notebook
+.ipynb_checkpoints
+
+# package dependency
+venv/
+.python-version
+
+# datasets
+datasets/*
+
+# pipline data
+*.pkl
+
+# other
+.DS_Store
+.vscode/
