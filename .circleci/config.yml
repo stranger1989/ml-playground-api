@@ -5,30 +5,40 @@ defaults: &defaults
     - image: cimg/python:3.9.9
   working_directory: ~/project
 
+prepare_venv: &prepare_venv
+  run:
+    name: Create venv
+    command: |
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install --upgrade pip
+
 jobs:
-  build:
-    <<: *defaults
-    steps:
-      - checkout:
-          path: ~/project
-      - run:
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements/dev_requirements.txt
   test:
     <<: *defaults
     steps:
+      - checkout
+      - *prepare_venv
       - run:
-          name: run testing
           command: |
+            . venv/bin/activate
+            pip install -r requirements/dev_requirements.txt
+      - run:
+          name: prepare dataset and ml model
+          command: |
+            . venv/bin/activate
+            kaggle competitions download -c titanic -p datasets/titanic
+            unzip datasets/titanic/titanic.zip -d datasets/titanic/
+            mkdir trained_models
+            python -m ml_models.titanic.generate_model
+      - run:
+          name: run unittest
+          command: |
+            . venv/bin/activate
             pytest tests
 
 workflows:
   version: 2
   test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - test

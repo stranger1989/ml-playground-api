@@ -7,7 +7,7 @@ from ml_models.titanic.schemas import validate_input_data
 
 
 def get_trained_data() -> dict:
-    df = load_dataset(file_name="titanic_train.csv")
+    df = load_dataset(file_name="titanic/train.csv")
     X = df[["Pclass", "Sex", "Age", "Fare"]]
     results = {"data": X.replace({np.nan: 0}).to_dict(orient="records"), "errors": None}
     return results

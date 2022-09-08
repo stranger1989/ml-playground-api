@@ -3,7 +3,7 @@ from ml_models.titanic.pipeline import pipeline
 
 
 def run_training() -> None:
-    df = load_dataset(file_name="titanic_train.csv")
+    df = load_dataset(file_name="titanic/train.csv")
     X = df[["Pclass", "Sex", "Age", "Fare"]]
     y = df["Survived"]
 
