@@ -1,0 +1,60 @@
+swagger: "2.0"
+info:
+  title: ML Playground API
+  description: ML Playground API on API Gateway with a Cloud Run backend
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+x-google-backend:
+  address: ${APP_URL}
+paths:
+  /:
+    get:
+      summary: Index
+      operationId: index__get
+      responses:
+        "200":
+          description: Successful Response
+  /docs:
+    get:
+      summary: Docs
+      operationId: docs__get
+      responses:
+        "200":
+          description: Successful Response
+  /openapi.json:
+    get:
+      summary: Json
+      operationId: json__get
+      responses:
+        "200":
+          description: Successful Response
+  /titanic/trained_data:
+    get:
+      summary: Titanic Trained Data
+      operationId: titanic_trained_data_titanic_trained_data_get
+      responses:
+        "200":
+          description: Successful Response
+      security:
+        - api_key: []
+  /titanic/predict/survived:
+    post:
+      summary: Titanic Predict Survived
+      operationId: titanic_predict_survived_titanic_predict_survived_post
+      responses:
+        "200":
+          description: Successful Response
+        "422":
+          description: Validation Error
+      security:
+        - api_key: []
+
+securityDefinitions:
+  # This section configures basic authentication with an API key.
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"

@@ -12,11 +12,19 @@ venv/
 
 # datasets
 datasets/*
+kaggle.json
 
 # pipline data
 *.pkl
 
+# terraform
+.terraform
+.terraform*
+terraform*
+
+# google cloud
+keyfile.json
+
 # other
 .DS_Store
 .vscode/
-kaggle.json
